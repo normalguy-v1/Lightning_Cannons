@@ -1,0 +1,74 @@
+local urls = {
+    V1 = "https://raw.githubusercontent.com/normalguy-v1/Lightning_Cannons/refs/heads/main/lightning-cannons/lightningcannonv1",
+    V2 = "https://raw.githubusercontent.com/normalguy-v1/Lightning_Cannons/refs/heads/main/lightning-cannons/lightningcannonv2"
+}
+
+local Players = game:GetService("Players")
+local CoreGui = game:GetService("CoreGui")
+local LocalPlayer = Players.LocalPlayer
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "LightningCannonGUI"
+gui.ResetOnSpawn = false
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 250, 0, 160)
+frame.Position = UDim2.new(0.5, -125, 0.5, -80)
+frame.BackgroundColor3 = Color3.fromRGB(22, 22, 30)
+frame.BorderSizePixel = 0
+frame.Parent = gui
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 12)
+corner.Parent = frame
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0, 45)
+title.BackgroundTransparency = 1
+title.Text = "Lightning Cannons"
+title.TextColor3 = Color3.new(1, 1, 1)
+title.TextSize = 18
+title.Font = Enum.Font.GothamBold
+title.Parent = frame
+
+local function makeButton(text, version, y)
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(1, -30, 0, 40)
+    button.Position = UDim2.new(0, 15, 0, y)
+    button.BackgroundColor3 = Color3.fromRGB(75, 95, 220)
+    button.TextColor3 = Color3.new(1, 1, 1)
+    button.TextSize = 15
+    button.Font = Enum.Font.GothamSemibold
+    button.Text = text
+    button.Parent = frame
+
+    local buttonCorner = Instance.new("UICorner")
+    buttonCorner.CornerRadius = UDim.new(0, 8)
+    buttonCorner.Parent = button
+
+    button.Activated:Connect(function()
+        gui:Destroy()
+
+        local ok, err = pcall(function()
+            local character = LocalPlayer.Character
+                or LocalPlayer.CharacterAdded:Wait()
+
+            local head = character:WaitForChild("Head")
+            local camera = workspace.CurrentCamera
+
+            camera.CameraSubject = head
+            camera.CameraType = Enum.CameraType.Follow
+
+            loadstring(game:HttpGet(urls[version]))()
+        end)
+
+        if not ok then
+            warn("Lightning Cannon " .. version .. " failed: " .. tostring(err))
+        end
+    end)
+end
+
+makeButton("Lightning Cannon V1", "V1", 50)
+makeButton("Lightning Cannon V2", "V2", 100)
+
+gui.Parent = CoreGui
