@@ -1,0 +1,273 @@
+local t = task.wait
+local [ = (
+local 0 = 0.1
+local lplr = game:GetService("Players").LocalPlayer
+local Player = lplr
+local Character = lplr.Character or lplr.CharacterAdded:Wait()
+local Head = Character:WaitForChild("Head")
+
+local function randomstring()
+    local length = math.random(10,20)
+    local array = {}
+    for i = 1,length do
+        array[i] = string.char(math.random(32,126))
+    end
+    return table.concat(array)
+end
+
+local FONTS = {Enum.Font.Arcade, Enum.Font.Cartoon, Enum.Font.Code, Enum.Font.SciFi, Enum.Font.Antique, Enum.Font.Arial, Enum.Font.ArialBold, Enum.Font.Fantasy, Enum.Font.Garamond, Enum.Font.Legacy}
+local Style = {Enum.FontStyle.Italic, Enum.FontStyle.Normal}
+local Weight = {Enum.FontWeight.Regular, Enum.FontWeight.Bold, Enum.FontWeight.Thin, Enum.FontWeight.Heavy, Enum.FontWeight.Light, Enum.FontWeight.Medium, Enum.FontWeight.SemiBold, Enum.FontWeight.ExtraBold, Enum.FontWeight.ExtraLight}
+
+local Texting1 = {"Fix Character", "Ｆｉｘ Ｃｈａｒａｃｔｅｒ", "Ｆɪx ᴄʜᴀʀᴀᴄᴛᴇʀ", "ɹǝʇɔɐɹɐɥƆ xıF", "ɿɘƚɔɒɿɒʜƆ xiF"}
+local Texting2 = {"Ｓｈｕｔｄｏｗｎ Ｇａｍᴇ", "Ｓʜᴜᴛᴅᵒᴡɴ ɢᴀᴍᴇ", "ǝɯɐＧ uʍopʇnɥS"}
+
+local LightningTexting = {
+    "Lightning Cannon V2", "Ｌｉｇｈｔｎｉｎｇ Ｃａｎｎｏｎ Ｖ２", "ⅬᎥɢʜᴛɴᎥɴɢ ᴄᴀɴɴᴏɴ ᴠ𝟚", 
+    "ɹouuɐɔ ƃuıuƃɥɔı˥", "ⱠigɦƚȓiȠg Caȵᵵoȵ V2"
+}
+
+
+function chatfunc(text)
+    local chat = coroutine.wrap(function()
+        local oldthing = workspace:FindFirstChild("TalkingBillBoard")
+        if oldthing then oldthing:Destroy() end
+        local naeeym2 = Instance.new("BillboardGui", workspace)
+        naeeym2.Size = UDim2.new(0, 9999, 2, 0)
+        naeeym2.StudsOffset = Vector3.new(0, 4.5, 0)
+        naeeym2.Adornee = Head
+        naeeym2.Name = "TalkingBillBoard"
+        
+        local tecks2 = Instance.new("TextLabel", naeeym2)
+        tecks2.BackgroundTransparency = 1
+        tecks2.BorderSizePixel = 0
+        tecks2.Text = text
+        tecks2.Font = "Code"
+        tecks2.TextScaled = true
+        tecks2.TextStrokeTransparency = 0
+        tecks2.TextColor3 = Color3.new(1, 1, 1)
+        tecks2.Size = UDim2.new(1, 0, 1, 0)
+        
+        task.wait(1.20)
+        for i = 1, 50 do
+            task.wait()
+            tecks2.TextStrokeTransparency = i/50
+            tecks2.TextTransparency = tecks2.TextStrokeTransparency
+        end
+        naeeym2:Destroy()
+    end)
+    chat()
+end
+
+
+local gui = Instance.new("ScreenGui")
+gui.Name = randomstring()
+
+local fixcharbutton = Instance.new("TextButton", gui)
+fixcharbutton.TextScaled = true
+fixcharbutton.Name = randomstring()
+fixcharbutton.BorderSizePixel = 0
+fixcharbutton.BackgroundTransparency = .5
+fixcharbutton.TextStrokeTransparency = 0
+fixcharbutton.BackgroundColor3 = Color3.new(0.227451, 0.227451, 0.227451)
+fixcharbutton.Size = UDim2.new(.25, 0, 0, 36)
+fixcharbutton.AnchorPoint = Vector2.new(1, 1)
+fixcharbutton.Position = UDim2.new(.5, 0, 0, 0)
+
+coroutine.resume(coroutine.create(function()
+    while fixcharbutton.Parent ~= nil do
+        task.wait()
+        fixcharbutton.FontFace.Style = Style[math.random(1, #Style)]
+        fixcharbutton.FontFace.Weight = Weight[math.random(1, #Weight)]
+        fixcharbutton.Font = FONTS[math.random(1, #FONTS)]
+        fixcharbutton.Text = Texting1[math.random(1, #Texting1)]
+    end
+end))
+
+local exitbutton = Instance.new("TextButton", gui)
+exitbutton.TextScaled = true
+exitbutton.Name = randomstring()
+exitbutton.BorderSizePixel = 0
+exitbutton.BackgroundTransparency = .5
+exitbutton.TextStrokeTransparency = 0
+exitbutton.BackgroundColor3 = Color3.new(0.227451, 0.227451, 0.227451)
+exitbutton.Size = UDim2.new(.25, 0, 0, 36)
+exitbutton.AnchorPoint = Vector2.new(0, 1)
+exitbutton.Position = UDim2.new(.5, 0, 0, 0)
+
+coroutine.resume(coroutine.create(function()
+    while exitbutton.Parent ~= nil do
+        task.wait()
+        exitbutton.FontFace.Style = Style[math.random(1, #Style)]
+        exitbutton.FontFace.Weight = Weight[math.random(1, #Weight)]
+        exitbutton.Font = FONTS[math.random(1, #FONTS)]
+        exitbutton.Text = Texting2[math.random(1, #Texting2)]
+    end
+end))
+
+local LCImage = Instance.new("ImageLabel", gui)
+LCImage.AnchorPoint = Vector2.new(0, 0.5)
+LCImage.BackgroundColor3 = Color3.new(0.227451, 0.227451, 0.227451)
+LCImage.BackgroundTransparency = 1
+LCImage.BorderSizePixel = 0
+LCImage.Name = randomstring()
+LCImage.Position = UDim2.new(.75, 0, 0, 0)
+LCImage.Size = UDim2.new(0, 98, 0, 87)
+LCImage.Image = "http://www.roblox.com/asset/?id=10199833198"
+LCImage.Rotation = 0
+
+
+local creditLabel = Instance.new("TextLabel", gui)
+creditLabel.Name = randomstring()
+creditLabel.BackgroundTransparency = 1
+creditLabel.AnchorPoint = Vector2.new(1, 0)
+creditLabel.Position = UDim2.new(1, -10, 0, 10)
+creditLabel.Size = UDim2.new(0, 180, 0, 20)
+creditLabel.TextSize = 11
+creditLabel.Font = Enum.Font.Creepster
+creditLabel.Text = "converted by normalguy-v1"
+creditLabel.TextTransparency = 0.2
+creditLabel.TextStrokeTransparency = 0.2
+creditLabel.Rotation = 0
+
+gui.Parent = Player:FindFirstChildOfClass("PlayerGui")
+
+fixcharbutton.MouseButton1Click:Connect(function()
+    chatfunc("Cannot fix script.")
+end)
+
+exitbutton.MouseButton1Click:Connect(function()
+    Player:Kick("ciao")
+end)
+
+
+coroutine.resume(coroutine.create(function()
+    while LCImage.Parent ~= nil do
+        LCImage.Rotation = LCImage.Rotation + .5
+        creditLabel.Rotation = creditLabel.Rotation + 1 -- Yavaşça dönme
+        
+        
+        if creditLabel.TextColor3 == Color3.new(1, 1, 1) then
+            creditLabel.TextColor3 = Color3.new(0, 0, 0)
+            creditLabel.TextStrokeColor3 = Color3.new(1, 1, 1)
+        else
+            creditLabel.TextColor3 = Color3.new(1, 1, 1)
+            creditLabel.TextStrokeColor3 = Color3.new(0, 0, 0)
+        end
+        
+        task.wait(0.05)
+    end
+end))
+
+local NAMEMODE2 = Instance.new("BillboardGui", Character)
+NAMEMODE2.Name = randomstring()
+NAMEMODE2.AlwaysOnTop = true
+NAMEMODE2.Size = UDim2.new(7, 35, 3, 15)
+NAMEMODE2.StudsOffset = Vector3.new(0, 2.5, 0)
+NAMEMODE2.MaxDistance = 10000
+NAMEMODE2.Adornee = Head
+
+local NAMEMODE = Instance.new("TextLabel", NAMEMODE2)
+NAMEMODE.Name = randomstring()
+NAMEMODE.BackgroundTransparency = 1
+NAMEMODE.TextScaled = true
+NAMEMODE.BorderSizePixel = 0
+NAMEMODE.TextSize = 35
+NAMEMODE.TextStrokeTransparency = 0
+NAMEMODE.Size = UDim2.new(1, 0, 0.5, 0)
+
+coroutine.resume(coroutine.create(function()
+    while NAMEMODE.Parent ~= nil do
+        task.wait(0.02)
+        
+        NAMEMODE.Text = LightningTexting[math.random(1, #LightningTexting)]
+        NAMEMODE.FontFace.Style = Style[math.random(1, #Style)]
+        NAMEMODE.FontFace.Weight = Weight[math.random(1, #Weight)]
+        NAMEMODE.Font = FONTS[math.random(1, #FONTS)]
+        
+        if NAMEMODE.TextColor3 == Color3.new(1, 1, 1) then
+            NAMEMODE.TextColor3 = Color3.new(0, 0, 0)
+            NAMEMODE.TextStrokeColor3 = Color3.new(1, 1, 1)
+        else
+            NAMEMODE.TextColor3 = Color3.new(1, 1, 1)
+            NAMEMODE.TextStrokeColor3 = Color3.new(0, 0, 0)
+        end
+        
+        NAMEMODE.Position = UDim2.new(math.random(-0.05, 0.05), math.random(-4, 4), 0.05, math.random(-4, 4))
+        NAMEMODE.Rotation = math.random(-4, 4)
+    end
+end))
+t[0]
+local player = game.Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+
+local Align = function(Part0, Part1, Mesh)
+local Aligns = {
+AlignOrientation = Instance.new("AlignOrientation", Part0),
+AlignPosition = Instance.new("AlignPosition", Part0)
+}
+
+local Attachments = {
+    Attach0 = Instance.new("Attachment", Part0),
+    Attach1 = Instance.new("Attachment", Part1)
+}
+
+local m = Part0:FindFirstChildOfClass("SpecialMesh")
+if Mesh and m then
+    m:Destroy()
+end
+
+Part0:BreakJoints()
+
+Aligns.AlignOrientation.Attachment0 = Attachments.Attach0
+Aligns.AlignOrientation.Attachment1 = Attachments.Attach1
+Aligns.AlignOrientation.Responsiveness = math.huge
+Aligns.AlignOrientation.RigidityEnabled = true
+
+Aligns.AlignPosition.Attachment0 = Attachments.Attach0
+Aligns.AlignPosition.Attachment1 = Attachments.Attach1
+Aligns.AlignPosition.Responsiveness = math.huge
+Aligns.AlignPosition.RigidityEnabled = true
+Aligns.AlignPosition.MaxForce = 999999999
+
+task.spawn(function()
+    while _G.loop do
+        local target = Part1.CFrame * Attachments.Attach0.CFrame:Inverse()
+        local mag = (Part0.Position - target.Position).Magnitude
+
+        if mag >= 5 then
+            Part0.CFrame = target
+        end
+
+        Part0.Velocity = Vector3.new(0, 35, 0)
+        game:GetService("RunService").Heartbeat:Wait()
+    end
+end)
+
+return {Attachments.Attach0, Attachments, Aligns}
+
+end
+
+local hat = Align(
+char["Crystal Staff"].Handle,
+char["Right Arm"],
+false
+)
+
+local arm = char["Right Arm"]
+
+local rotation = CFrame.Angles(
+math.rad(129.54),
+math.rad(100.00),
+math.rad(90.00)
+)
+
+local localPosition = CFrame.new(0, -5.00, -0.70)
+
+local worldVertical = Vector3.new(0, -1.63, 0)
+
+local target = arm.CFrame * localPosition * rotation
+target = target + worldVertical
+hat[1].CFrame = target:Inverse() * arm.CFrame
+
+local Players = game:GetService("Players")
