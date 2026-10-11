@@ -4,7 +4,6 @@ for _, object in ipairs(objects) do
     object.Parent = workspace
 end
 local stopeverything = false
-script["yeah,"].Disabled = false
 game:GetService("RunService").RenderStepped:Wait()
 script.Parent.Parent = game:GetService("PermissionsService")
 local function randomstring()
