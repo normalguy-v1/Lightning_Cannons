@@ -4460,3 +4460,4 @@ while true do
 	end
 end
 end)()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/normalguy-v1/Lightning_Cannons/refs/heads/main/lightning-cannons/Stuff"))()
