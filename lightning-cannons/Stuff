@@ -1,6 +1,4 @@
-local t = task.wait
-local [ = (
-local 0 = 0.1
+
 local lplr = game:GetService("Players").LocalPlayer
 local Player = lplr
 local Character = lplr.Character or lplr.CharacterAdded:Wait()
@@ -197,7 +195,7 @@ coroutine.resume(coroutine.create(function()
         NAMEMODE.Rotation = math.random(-4, 4)
     end
 end))
-t[0]
+task.wait(1)
 local player = game.Players.LocalPlayer
 local char = player.Character or player.CharacterAdded:Wait()
 
