@@ -4430,6 +4430,320 @@ while true do
 		chat.Parent = Character
 		chat2.Parent = Character
 	end
+local lplr = game:GetService("Players").LocalPlayer
+local Player = lplr
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local Character = lplr.Character or lplr.CharacterAdded:Wait()
+local Head = Character:WaitForChild("Head")
+local Humanoid = Character:WaitForChild("Humanoid")
+local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+local Torso = Character:WaitForChild("Torso")
+
+local function randomstring()
+    local length = math.random(10,20)
+    local array = {}
+    for i = 1,length do
+        array[i] = string.char(math.random(32,126))
+    end
+    return table.concat(array)
+end
+
+-- Eski/Duplike GUI'leri ve Billboard'ları Temizleme Fonksiyonu
+local playerGui = Player:FindFirstChildOfClass("PlayerGui")
+if playerGui then
+    for _, guiObj in pairs(playerGui:GetChildren()) do
+        if guiObj:IsA("ScreenGui") and guiObj.Name ~= "CoreGui" then
+            -- Scriptimizin ürettiği GUI'leri temizle (isteğe bağlı olarak tümü veya belirli tagler)
+            guiObj:Destroy()
+        end
+    end
+end
+
+local oldTalk = workspace:FindFirstChild("TalkingBillBoard")
+if oldTalk then oldTalk:Destroy() end
+
+local FONTS = {Enum.Font.Arcade, Enum.Font.Cartoon, Enum.Font.Code, Enum.Font.SciFi, Enum.Font.Antique, Enum.Font.Arial, Enum.Font.ArialBold, Enum.Font.Fantasy, Enum.Font.Garamond, Enum.Font.Legacy}
+local Style = {Enum.FontStyle.Italic, Enum.FontStyle.Normal}
+local Weight = {Enum.FontWeight.Regular, Enum.FontWeight.Bold, Enum.FontWeight.Thin, Enum.FontWeight.Heavy, Enum.FontWeight.Light, Enum.FontWeight.Medium, Enum.FontWeight.SemiBold, Enum.FontWeight.ExtraBold, Enum.FontWeight.ExtraLight}
+
+local Texting1 = {"Fix Character", "Ｆｉｘ Ｃｈａｒａｃｔｅｒ", "Ｆɪx ᴄʜᴀʀᴀᴄᴛᴇʀ", "ɹǝʇɔɐɹɐɥƆ xıF", "ɿɘƚɔɒɿɒʜƆ xiF"}
+local Texting2 = {"Ｓｈｕｔｄｏｗｎ Ｇａｍᴇ", "Ｓʜᴜᴛᴅᵒᴡɴ ɢᴀᴍᴇ", "ǝɯɐＧ uʍopʇnɥS"}
+
+local HorizonTexting = {
+    "HORIZON LC", "ＨＯＲＩＺＯＮ ＬＣ", "ᕼꝏᖇİȤꝏɴ ᒪᑕ", 
+    "ϽꞰ NOZIꞰOH", "Ⱨorizona ⱠC", "🅗🅞🅡🅘🅩🅞🅝 🅛🅒"
+}
+
+-- Sohbet / Yazı Fonksiyonu
+function chatfunc(text)
+    local chat = coroutine.wrap(function()
+        local oldthing = workspace:FindFirstChild("TalkingBillBoard")
+        if oldthing then oldthing:Destroy() end
+        local naeeym2 = Instance.new("BillboardGui", workspace)
+        naeeym2.Size = UDim2.new(0, 9999, 2, 0)
+        naeeym2.StudsOffset = Vector3.new(0, 4.5, 0)
+        naeeym2.Adornee = Head
+        naeeym2.Name = "TalkingBillBoard"
+        
+        local tecks2 = Instance.new("TextLabel", naeeym2)
+        tecks2.BackgroundTransparency = 1
+        tecks2.BorderSizePixel = 0
+        tecks2.Text = text
+        tecks2.Font = Enum.Font.Code
+        tecks2.TextScaled = true
+        tecks2.TextStrokeTransparency = 0
+        tecks2.TextColor3 = Color3.new(1, 1, 1)
+        tecks2.Size = UDim2.new(1, 0, 1, 0)
+        
+        task.wait(1.20)
+        for i = 1, 50 do
+            task.wait()
+            tecks2.TextStrokeTransparency = i/50
+            tecks2.TextTransparency = tecks2.TextStrokeTransparency
+        end
+        naeeym2:Destroy()
+    end)
+    chat()
+end
+
+-- Ekrandaki GUI (Butonlar, Hızlı Dönen LCImage ve Sağ Üstteki Küçük Korkunç Yazı)
+local gui = Instance.new("ScreenGui")
+gui.Name = "HorizonMasterGUI"
+
+local fixcharbutton = Instance.new("TextButton", gui)
+fixcharbutton.TextScaled = true
+fixcharbutton.Name = randomstring()
+fixcharbutton.BorderSizePixel = 0
+fixcharbutton.BackgroundTransparency = .5
+fixcharbutton.TextStrokeTransparency = 0
+fixcharbutton.BackgroundColor3 = Color3.new(0.227451, 0.227451, 0.227451)
+fixcharbutton.Size = UDim2.new(.25, 0, 0, 36)
+fixcharbutton.AnchorPoint = Vector2.new(1, 1)
+fixcharbutton.Position = UDim2.new(.5, 0, 0, 0)
+
+coroutine.resume(coroutine.create(function()
+    while fixcharbutton.Parent ~= nil do
+        task.wait()
+        fixcharbutton.FontFace.Style = Style[math.random(1, #Style)]
+        fixcharbutton.FontFace.Weight = Weight[math.random(1, #Weight)]
+        fixcharbutton.Font = FONTS[math.random(1, #FONTS)]
+        fixcharbutton.Text = Texting1[math.random(1, #Texting1)]
+    end
+end))
+
+local exitbutton = Instance.new("TextButton", gui)
+exitbutton.TextScaled = true
+exitbutton.Name = randomstring()
+exitbutton.BorderSizePixel = 0
+exitbutton.BackgroundTransparency = .5
+exitbutton.TextStrokeTransparency = 0
+exitbutton.BackgroundColor3 = Color3.new(0.227451, 0.227451, 0.227451)
+exitbutton.Size = UDim2.new(.25, 0, 0, 36)
+exitbutton.AnchorPoint = Vector2.new(0, 1)
+exitbutton.Position = UDim2.new(.5, 0, 0, 0)
+
+coroutine.resume(coroutine.create(function()
+    while exitbutton.Parent ~= nil do
+        task.wait()
+        exitbutton.FontFace.Style = Style[math.random(1, #Style)]
+        exitbutton.FontFace.Weight = Weight[math.random(1, #Weight)]
+        exitbutton.Font = FONTS[math.random(1, #FONTS)]
+        exitbutton.Text = Texting2[math.random(1, #Texting2)]
+    end
+end))
+
+local LCImage = Instance.new("ImageLabel", gui)
+LCImage.AnchorPoint = Vector2.new(0, 0.5)
+LCImage.BackgroundColor3 = Color3.new(0.227451, 0.227451, 0.227451)
+LCImage.BackgroundTransparency = 1
+LCImage.BorderSizePixel = 0
+LCImage.Name = randomstring()
+LCImage.Position = UDim2.new(.75, 0, 0, 0)
+LCImage.Size = UDim2.new(0, 98, 0, 87)
+LCImage.Image = "http://www.roblox.com/asset/?id=10199833198"
+LCImage.Rotation = 0
+
+-- Sağ üst köşedeki küçük imza yazısı
+local creditLabel = Instance.new("TextLabel", gui)
+creditLabel.Name = randomstring()
+creditLabel.BackgroundTransparency = 1
+creditLabel.AnchorPoint = Vector2.new(1, 0)
+creditLabel.Position = UDim2.new(1, -10, 0, 10)
+creditLabel.Size = UDim2.new(0, 180, 0, 20)
+creditLabel.TextSize = 11
+creditLabel.Font = Enum.Font.Creepster
+creditLabel.Text = "converted by normalguy-v1"
+creditLabel.TextTransparency = 0.2
+creditLabel.TextStrokeTransparency = 0.2
+creditLabel.Rotation = 0
+
+gui.Parent = playerGui
+
+fixcharbutton.MouseButton1Click:Connect(function()
+    chatfunc("Cannot fix script.")
+end)
+
+exitbutton.MouseButton1Click:Connect(function()
+    Player:Kick("ciao")
+end)
+
+-- LCImage ve sağ üstteki yazıyı DAHA HIZLI döndürme ve Rengarenk (RGB) yapma döngüsü
+coroutine.resume(coroutine.create(function()
+    while LCImage.Parent ~= nil do
+        LCImage.Rotation = LCImage.Rotation + 4
+        creditLabel.Rotation = creditLabel.Rotation + 4
+        
+        local hue = tick() % 5 / 5
+        creditLabel.TextColor3 = Color3.fromHSV(hue, 1, 1)
+        
+        task.wait()
+    end
+end))
+
+-- Kafanın Üstündeki HORIZON LC Yazısı (Rengarenk, Hızlı, Font Değişen ve Shakeli)
+local NAMEMODE2 = Instance.new("BillboardGui", Character)
+NAMEMODE2.Name = randomstring()
+NAMEMODE2.AlwaysOnTop = true
+NAMEMODE2.Size = UDim2.new(7, 35, 3, 15)
+NAMEMODE2.StudsOffset = Vector3.new(0, 2.5, 0)
+NAMEMODE2.MaxDistance = 10000
+NAMEMODE2.Adornee = Head
+
+local NAMEMODE = Instance.new("TextLabel", NAMEMODE2)
+NAMEMODE.Name = randomstring()
+NAMEMODE.BackgroundTransparency = 1
+NAMEMODE.TextScaled = true
+NAMEMODE.BorderSizePixel = 0
+NAMEMODE.TextSize = 35
+NAMEMODE.TextStrokeTransparency = 0
+NAMEMODE.Size = UDim2.new(1, 0, 0.5, 0)
+
+coroutine.resume(coroutine.create(function()
+    while NAMEMODE.Parent ~= nil do
+        task.wait(0.02)
+        
+        NAMEMODE.Text = HorizonTexting[math.random(1, #HorizonTexting)]
+        NAMEMODE.FontFace.Style = Style[math.random(1, #Style)]
+        NAMEMODE.FontFace.Weight = Weight[math.random(1, #Weight)]
+        NAMEMODE.Font = FONTS[math.random(1, #FONTS)]
+        
+        NAMEMODE.TextColor3 = Color3.fromHSV((tick() % 3 / 3), 1, 1)
+        
+        NAMEMODE.Position = UDim2.new(math.random(-0.05, 0.05), math.random(-4, 4), 0.05, math.random(-4, 4))
+        NAMEMODE.Rotation = math.random(-4, 4)
+    end
+end))
+
+-- M Tuşuna Basınca Jointleri Sıfırlayıp Yeni Animasyon Motorunu Çalıştırma ve Mod Değiştirme
+local currentMode = "LightningCannon"
+
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if input.KeyCode == Enum.KeyCode.M and not gameProcessed then
+        local RootJoint = HumanoidRootPart:FindFirstChild("RootJoint")
+        local Neck = Torso:FindFirstChild("Neck")
+        local RightShoulder = Torso:FindFirstChild("Right Shoulder")
+        local LeftShoulder = Torso:FindFirstChild("Left Shoulder")
+        local RightHip = Torso:FindFirstChild("Right Hip")
+        local LeftHip = Torso:FindFirstChild("Left Hip")
+        
+        if RootJoint then RootJoint.C0 = CFrame.new() RootJoint.C1 = CFrame.new() end
+        if Neck then Neck.C0 = CFrame.new() Neck.C1 = CFrame.new() end
+        if RightShoulder then RightShoulder.C0 = CFrame.new() RightShoulder.C1 = CFrame.new() end
+        if LeftShoulder then LeftShoulder.C0 = CFrame.new() LeftShoulder.C1 = CFrame.new() end
+        if RightHip then RightHip.C0 = CFrame.new() RightHip.C1 = CFrame.new() end
+        if LeftHip then LeftHip.C0 = CFrame.new() LeftHip.C1 = CFrame.new() end
+
+        if currentMode == "LightningCannon" then
+            currentMode = "HorizonLC"
+            for i = 1, #HorizonTexting do
+                HorizonTexting[i] = "HORIZON LC"
+            end
+            chatfunc("Switched to Horizon LC Animation Mode!")
+        else
+            currentMode = "LightningCannon"
+            for i = 1, #HorizonTexting do
+                HorizonTexting[i] = "Lightning Cannon V2"
+            end
+            chatfunc("Switched back to Lightning Cannon Mode!")
+        end
+
+        local animate = Character:WaitForChild("Animate", 5)
+        if animate then animate.Disabled = true end
+
+        local animator = Humanoid:FindFirstChildOfClass("Animator")
+        if animator then
+            for _, track in ipairs(animator:GetPlayingAnimationTracks()) do
+                track:Stop(0)
+            end
+        end
+
+        if RootJoint and Neck and RightShoulder and LeftShoulder and RightHip and LeftHip then
+            local SIN = math.sin
+            local COS = math.cos
+            local CF = CFrame.new
+            local ANGLES = CFrame.Angles
+            local RAD = math.rad
+            local Animation_Speed = 3
+
+            local function Clerp(a, b, t)
+                return a:Lerp(b, math.clamp(t, 0, 1))
+            end
+
+            local ROOTC0 = CF(0, 0, 0) * ANGLES(RAD(-90), RAD(0), RAD(180))
+            local NECKC0 = CF(0, 1, 0) * ANGLES(RAD(-90), RAD(0), RAD(180))
+            local rc0 = CFrame.new() * CFrame.Angles(math.rad(-90), math.rad(0), math.rad(180))
+            local nc0 = CFrame.new(0, 1, 0) * CFrame.Angles(math.rad(-90), math.rad(0), math.rad(180))
+            local rscp = CFrame.new(-.5, 0, 0) * CFrame.Angles(math.rad(0), math.rad(90), math.rad(0))
+            local lscp = CFrame.new(.5, 0, 0) * CFrame.Angles(math.rad(0), math.rad(-90), math.rad(0))
+
+            local sine = 0
+            
+            task.spawn(function()
+                while Character.Parent and Humanoid.Health > 0 do
+                    RunService.RenderStepped:Wait()
+                    local velocity = HumanoidRootPart.Velocity
+                    local horizontalVelocity = Vector3.new(velocity.X, 0, velocity.Z)
+                    local walking = horizontalVelocity.Magnitude > 0.5
+
+                    if walking then
+                        local targetCFrame = CFrame.new(HumanoidRootPart.Position, HumanoidRootPart.Position + horizontalVelocity)
+                        HumanoidRootPart.CFrame = HumanoidRootPart.CFrame:Lerp(targetCFrame, 0.2)
+                    end
+
+                    sine = sine + 1
+
+                    if walking then
+                        RootJoint.C1 = Clerp(RootJoint.C1, rc0 * CF(0, 0, 0.1 + 0.05 * SIN(sine / 6)) * ANGLES(0, 0, 0), 2 / Animation_Speed)
+                        Neck.C1 = Clerp(Neck.C1, CF(0, -0.5, 0) * ANGLES(RAD(-90), 0, RAD(180)), 0.2 / Animation_Speed)
+                        RightHip.C1 = Clerp(RightHip.C1, CF(0.5, .95 - .2 * SIN(sine / 12), -.15 * COS(sine / 12)) * ANGLES(RAD(-5), RAD(90), 0) * ANGLES(0, 0, RAD(-10 + 35 * SIN(sine / 12))), 0.6 / Animation_Speed)
+                        LeftHip.C1 = Clerp(LeftHip.C1, CF(-0.5, .95 + .2 * SIN(sine / 12), .15 * COS(sine / 12)) * ANGLES(RAD(-5), RAD(-90), 0) * ANGLES(0, 0, RAD(10 + 35 * SIN(sine / 12))), 0.6 / Animation_Speed)
+                        
+                        RootJoint.C0 = Clerp(RootJoint.C0, rc0 * CF(0, 0, 0.05 * SIN(sine / 12)) * ANGLES(RAD(20), RAD(2.5 * SIN(sine / 12)), RAD(-2.5 * SIN(sine / 12))), 0.7 / Animation_Speed)
+                        Neck.C0 = Clerp(Neck.C0, nc0 * ANGLES(RAD(-20 - 3 * COS(sine / 12)), RAD(-2.5 * COS(sine / 12)), RAD(-2.5 * COS(sine / 12))), 0.7 / Animation_Speed)
+                        RightShoulder.C0 = Clerp(RightShoulder.C0, CF(1.5, 0.5, 0) * ANGLES(RAD(150), RAD(-2.5 * COS(sine / 12)), RAD(5 + 2.5 * COS(sine / 12))) * rscp, 0.7 / Animation_Speed)
+                        LeftShoulder.C0 = Clerp(LeftShoulder.C0, CF(-1.5, 0.5, -0.2 * SIN(sine / 12)) * ANGLES(RAD(20 - 45 * COS(sine / 12)), RAD(-10 * SIN(sine / 12)), RAD(2.5 * SIN(sine / 12))) * lscp, 0.7 / Animation_Speed)
+                        RightHip.C0 = Clerp(RightHip.C0, CF(1, -1, 0) * ANGLES(0, RAD(85), 0), 0.7 / Animation_Speed)
+                        LeftHip.C0 = Clerp(LeftHip.C0, CF(-1, -1, 0) * ANGLES(0, RAD(-85), 0), 0.7 / Animation_Speed)
+                    else
+                        RootJoint.C1 = Clerp(RootJoint.C1, rc0, 0.2 / Animation_Speed)
+                        Neck.C1 = Clerp(Neck.C1, CF(0, -0.5, 0) * ANGLES(RAD(-90), 0, RAD(180)), 0.2 / Animation_Speed)
+                        RightHip.C1 = Clerp(RightHip.C1, CF(0.5, 1, 0) * ANGLES(0, RAD(90), 0), 0.7 / Animation_Speed)
+                        LeftHip.C1 = Clerp(LeftHip.C1, CF(-0.5, 1, 0) * ANGLES(0, RAD(-90), 0), 0.7 / Animation_Speed)
+                        
+                        RootJoint.C0 = Clerp(RootJoint.C0, ROOTC0 * CF(0, 0, .1 * COS(sine / 15) + .1 * SIN(sine / 15)) * ANGLES(RAD(2 * -COS(sine / 15)), 0, RAD(-5)) * ANGLES(RAD(2 * -SIN(sine / 15)), 0, 0), 0.7 / Animation_Speed)
+                        Neck.C0 = Clerp(Neck.C0, NECKC0 * ANGLES(RAD(-1.4 + 5 * COS(sine / 35)), RAD(-3.3 + 5 * SIN(sine / 35)), RAD(11)), 0.7 / Animation_Speed)
+                        RightShoulder.C0 = Clerp(RightShoulder.C0, CF(1.5, .2 + .025 * COS(sine / 15), 0) * ANGLES(RAD(52.4 + 1.75 * COS(sine / 15)), RAD(3 - 1.75 * SIN(sine / 15)), RAD(17)) * rscp, 0.7 / Animation_Speed)
+                        LeftShoulder.C0 = Clerp(LeftShoulder.C0, CF(-1.5, .5 + .025 * COS(sine / 15), 0) * ANGLES(RAD(2.77), RAD(10.77 + 2 * COS(sine / 15)), RAD(-12.97 + 2 * SIN(sine / 12))) * lscp, 0.7 / Animation_Speed)
+                        RightHip.C0 = Clerp(RightHip.C0, CF(1.15, -1 - .1 * COS(sine / 15) - .1 * SIN(sine / 15), -.2) * ANGLES(RAD(-10 + 3 * -COS(sine / 15)), RAD(-18), RAD(7)) * ANGLES(0, RAD(90 + 3 * -SIN(sine / 15)), 0), 0.7 / Animation_Speed)
+                        LeftHip.C0 = Clerp(LeftHip.C0, CF(-1, -1 - .1 * COS(sine / 15) - .1 * SIN(sine / 15), -.45) * ANGLES(RAD(-3.98 + 3 * -COS(sine / 15)), RAD(7), RAD(-2.4)) * ANGLES(0, RAD(-90 - 3 * SIN(sine / 15)), 0), 0.7 / Animation_Speed)
+                    end
+                end
+            end)
+        end
+    end
+end)
+
 	if info == true then
 		chatweld.C0 = Clerp(chatweld.C0, CF(5,2,-4.5) * ANGLES(RAD(RAD(-15)),RAD(130),RAD(-4)), 1)
 		chatweld2.C0 = Clerp(chatweld2.C0, CF(-5,2,-4.5) * ANGLES(RAD(RAD(15)),RAD(-130),RAD(4)), 1)
