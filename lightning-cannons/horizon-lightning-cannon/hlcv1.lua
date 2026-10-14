@@ -2851,7 +2851,32 @@ function ShakeCam(Length,Intensity)
 	end))
 end
 --ShakeCam(5,10)
+local RunService = game:GetService("RunService")
 
+local Character = workspace.MainModule["1C"].Work.supbro.IGod.Character
+local TextLabel = Character.Effects.Name2.TextLabel
+local Gun = Character.DarkMegaGunnModel
+local NeonParts = Gun.NeonParts
+local Base = Gun.Base
+
+Base.Color = Color3.fromRGB(0, 0, 0)
+
+RunService.RenderStepped:Connect(function()
+	local hue = (os.clock() * 5) % 1
+	local color = Color3.fromHSV(hue, 1, 1)
+
+	TextLabel.TextColor3 = color
+
+	if NeonParts:IsA("BasePart") then
+		NeonParts.Color = color
+	else
+		for _, v in ipairs(NeonParts:GetDescendants()) do
+			if v:IsA("BasePart") then
+				v.Color = color
+			end
+		end
+	end
+end)
 function LightningBomb()
 	attack = true
 	walkspeed = 0
