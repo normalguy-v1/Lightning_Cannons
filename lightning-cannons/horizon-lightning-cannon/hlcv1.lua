@@ -1,3 +1,4 @@
+-- credits to @AlwaysSillyLife for the script fix by me
 local Player = game:GetService("Players").LocalPlayer
 local script = game:GetObjects("rbxassetid://15527252293")[1]
 game:GetService("RunService").RenderStepped:Wait()
