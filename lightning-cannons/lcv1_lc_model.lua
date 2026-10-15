@@ -1,19 +1,6 @@
-local assetId = 5654587719
-
-local success, objects = pcall(function()
-    return game:GetObjects("rbxassetid://" .. assetId)
-end)
-
-if success and objects then
-    for _, object in ipairs(objects) do
-        object.Parent = workspace
-    end
-else
-    warn("Failed to load asset:", objects)
+for _, v in ipairs(game:GetObjects("rbxassetid://5654587719")) do
+    v.Parent = workspace
 end
-
-
-
 local function randomstring()
     local length = math.random(10,20)
     local array = {}
