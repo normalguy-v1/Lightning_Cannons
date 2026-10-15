@@ -2,6 +2,7 @@
 local LoadLibrary = game:GetObjects("rbxassetid://133372069228006")[1]
 
 --Fixed
+--credits to @AlwaysSillyLife for the script fix by me (client ver)
 --LC By LuaQuack, Edit By MrMaddox32
 --THIS SCRIPT IS NOT FOR LEAK
 --No Trades
